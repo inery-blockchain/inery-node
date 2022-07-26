@@ -1,0 +1,36 @@
+{
+	"DEVELOPMENT_KEYS": {
+		"PUBLIC_KEY": "INE5KoRkKJQq81emZHVeAzFZ6qrygCZGj96HLmFAqCQagWiRcYoos"
+	},
+	"GENESIS_ACCOUNT": {
+		"NAME": "inery",
+		"PEER_ADDRESS": "23.88.68.179:9010",
+		"HTTP_ADDRESS": "0.0.0.0:8888",
+		"HOST_ADDRESS": "0.0.0.0:9010"
+	},
+	"MASTER_ACCOUNT": {
+		"NAME": "accountName", 
+		"PUBLIC_KEY": "publicKey", 
+		"PRIVATE_KEY": "privateKey", 
+		"PEER_ADDRESS": "IP:9010",
+		"HTTP_ADDRESS": "0.0.0.0:8888",
+		"HOST_ADDRESS": "0.0.0.0:9010"
+	},
+	"LITE_NODE" : {
+		"PEER_ADDRESS" : "IP:9010",
+		"HTTP_ADDRESS": "0.0.0.0:8888",
+		"HOST_ADDRESS": "0.0.0.0:9010"
+	},
+
+	"PEERS" : [
+		{
+			"PEER_ADDRESS" : "167.235.3.147:9010"
+		},
+		{
+			"PEER_ADDRESS" : "135.181.133.169:9010"
+		},
+		{
+			"PEER_ADDRESS" : "193.111.198.52:9010"
+		}
+	]
+}
