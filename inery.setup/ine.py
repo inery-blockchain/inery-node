@@ -13,7 +13,7 @@ def log(message):
 	print("==================================================")
 
 def exportPath() :
-    os.chdir('../inery/2.0/bin')            
+    os.chdir('../inery/bin')            
     path = f'export PATH="$PATH:{os.getcwd()}"'
     user = os.getenv("HOME")
     bashrc_path = os.path.join(user, '.bashrc')
