@@ -93,13 +93,78 @@ def lite(config) :
     os.system("./genesis_start.sh")
     time.sleep(2)
     _configIni()
-    
+
+
+def add_peer(peer_addr):
+    dirs = [name for name in os.listdir(".") if os.path.isdir(name)]
+    if "master.node" in dirs:
+        os.chdir('master.node')
+    elif "lite.node" in dirs:
+        os.chdir('lite.node')
+    elif "genesis.node" in dirs:
+        os.chdir('genesis.node')
+    else:
+        return
+    #Add peer to start.sh
+    start_file = open("start.sh","r")
+    start_conf = start_file.read()
+    start_file.close()
+    first_part = start_conf[0:start_conf.index("--p2p-peer-address")]
+    second_part = start_conf[start_conf.index("--p2p-peer-address"):]
+    sec_f = second_part[0:second_part.index("\\") + 1]
+    sec_s = second_part[second_part.index("\\") + 1:]
+    start_file = open("start.sh","w")
+    start_file.write(first_part + sec_f + "\n--p2p-peer-address " + peer_addr + ":9010 \\" + sec_s)
+    start_file.close()
+
+    #Add peer to hard_replay.sh
+    start_file = open("hard_replay.sh","r")
+    start_conf = start_file.read()
+    start_file.close()
+    first_part = start_conf[0:start_conf.index("--p2p-peer-address")]
+    second_part = start_conf[start_conf.index("--p2p-peer-address"):]
+    sec_f = second_part[0:second_part.index("\\") + 1]
+    sec_s = second_part[second_part.index("\\") + 1:]
+    start_file = open("hard_replay.sh","w")
+    start_file.write(first_part + sec_f + "\n--p2p-peer-address " + peer_addr + ":9010 \\" + sec_s)
+    start_file.close()
+
+    #Add peer to genesis_start.sh
+    start_file = open("genesis_start.sh","r")
+    start_conf = start_file.read()
+    start_file.close()
+    first_part = start_conf[0:start_conf.index("--p2p-peer-address")]
+    second_part = start_conf[start_conf.index("--p2p-peer-address"):]
+    sec_f = second_part[0:second_part.index("\\") + 1]
+    sec_s = second_part[second_part.index("\\") + 1:]
+    start_file = open("genesis_start.sh","w")
+    start_file.write(first_part + sec_f + "\n--p2p-peer-address " + peer_addr + ":9010 \\" + sec_s)
+    start_file.close()
+
+    os.system("./stop.sh")
+    os.system("./start.sh")
+
+def restart():
+    dirs = [name for name in os.listdir(".") if os.path.isdir(name)]
+    if "master.node" in dirs:
+        os.chdir('master.node')
+    elif "lite.node" in dirs:
+        os.chdir('lite.node')
+    elif "genesis.node" in dirs:
+        os.chdir('genesis.node')
+    else:
+        return
+    os.system("./stop.sh")
+    os.system("./start.sh")
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--master", help="Create master node", action='store_true')
     parser.add_argument("--lite", help="Create lite node", action='store_true')
     parser.add_argument("--export", help="Export inery bin path to .bashrc file", action='store_true')
     parser.add_argument("--deps", help="Install dependencies for binaries", action='store_true')
+    parser.add_argument("--add_peer", help="Adding new peers for inery node", action='store')
+    parser.add_argument("--restart", help="Restarting inery node", action='store_true')
     args = parser.parse_args()
 
     # Open and read confi.json file 
@@ -112,6 +177,12 @@ if __name__ == "__main__":
         exportPath()
     if args.deps :
         instalDep()
+
+    if args.add_peer:
+        add_peer(args.add_peer)
+
+    if args.restart:
+        restart()
 
     if args.master :
         STATUS = 'master'
