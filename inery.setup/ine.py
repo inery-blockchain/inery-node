@@ -192,6 +192,6 @@ if __name__ == "__main__":
 
     if args.lite : 
         STATUS = 'lite'
-        node = config["LITE_NODE"]
-        lite(node)
+        #node = config["LITE_NODE"] this create KeyError because theres no 'GENESIS_ACCOUNT' Key inside 'LITE_NODE' dict/object
+        lite(config) #pass config(global variable) instead of node
         os.system('tail -f blockchain/nodine.log')
