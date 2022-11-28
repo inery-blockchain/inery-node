@@ -1,10 +1,10 @@
 #pragma once
 
-/// VERSION 2.0.7
+/// VERSION 1.0.0
 namespace inery {
    enum version {
-      MAJOR 2,
+      MAJOR 1,
       MINOR 0,
-      PATCH 7
+      PATCH 0
    };
 }

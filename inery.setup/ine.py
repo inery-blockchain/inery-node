@@ -188,10 +188,9 @@ if __name__ == "__main__":
         STATUS = 'master'
         node = config["MASTER_ACCOUNT"]
         master(node)
-        os.system('tail -f blockchain/nodine.log')
 
     if args.lite : 
         STATUS = 'lite'
         node = config["LITE_NODE"]
         lite(node)
-        os.system('tail -f blockchain/nodine.log')
+
