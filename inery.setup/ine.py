@@ -66,16 +66,15 @@ def master(master) :
     _configIni()
 
 
-def lite(config) :
+def lite(lite) :
     log("Creating lite node")
     _makeScripts()
 
     os.chdir('lite.node')
     genesis = config["GENESIS_ACCOUNT"]["PEER_ADDRESS"]
 
-    lite_node = config["LITE_NODE"]
-    peer_addr = lite_node["PEER_ADDRESS"]
-    http_addr = lite_node["HTTP_ADDRESS"]
+    peer_addr = lite["PEER_ADDRESS"]
+    http_addr = lite["HTTP_ADDRESS"]
 
     for file in FILES:
         with open(file, "a") as fs:
@@ -193,4 +192,3 @@ if __name__ == "__main__":
         STATUS = 'lite'
         node = config["LITE_NODE"]
         lite(node)
-
