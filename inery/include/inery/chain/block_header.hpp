@@ -1,6 +1,6 @@
 #pragma once
 #include <inery/chain/block_timestamp.hpp>
-#include <inery/chain/producer_schedule.hpp>
+#include <inery/chain/master_schedule.hpp>
 #include <inery/chain/protocol_feature_activation.hpp>
 
 #include <type_traits>
@@ -17,7 +17,7 @@ namespace inery { namespace chain {
 
    using block_header_extension_types = detail::block_header_extension_types<
       protocol_feature_activation,
-      producer_schedule_change_extension
+      master_schedule_change_extension
    >;
 
    using block_header_extension = block_header_extension_types::block_header_extension_t;
@@ -25,16 +25,16 @@ namespace inery { namespace chain {
    struct block_header
    {
       block_timestamp_type             timestamp;
-      account_name                     producer;
+      account_name                     master;
 
       /**
-       *  By signing this block this producer is confirming blocks [block_num() - confirmed, blocknum())
+       *  By signing this block this master is confirming blocks [block_num() - confirmed, blocknum())
        *  as being the best blocks for that range and that he has not signed any other
        *  statements that would contradict.
        *
-       *  No producer should sign a block with overlapping ranges or it is proof of byzantine
-       *  behavior. When producing a block a producer is always confirming at least the block he
-       *  is building off of.  A producer cannot confirm "this" block, only prior blocks.
+       *  No master should sign a block with overlapping ranges or it is proof of byzantine
+       *  behavior. When producing a block a master is always confirming at least the block he
+       *  is building off of.  A master cannot confirm "this" block, only prior blocks.
        */
       uint16_t                         confirmed = 1;
 
@@ -48,16 +48,16 @@ namespace inery { namespace chain {
        *
        * Prior to that activation this carries:
        *
-       * The producer schedule version that should validate this block, this is used to
-       * indicate that the prior block which included new_producers->version has been marked
-       * irreversible and that it the new producer schedule takes effect this block.
+       * The master schedule version that should validate this block, this is used to
+       * indicate that the prior block which included new_masters->version has been marked
+       * irreversible and that it the new master schedule takes effect this block.
        */
 
-      using new_producers_type = optional<legacy::producer_schedule_type>;
+      using new_masters_type = optional<legacy::master_schedule_type>;
 
-      uint32_t                          schedule_version = 0;
-      new_producers_type                new_producers;
-      extensions_type                   header_extensions;
+      uint32_t                            schedule_version = 0;
+      new_masters_type                    new_masters;
+      extensions_type                     header_extensions;
 
 
       block_header() = default;
@@ -79,8 +79,8 @@ namespace inery { namespace chain {
 } } /// namespace inery::chain
 
 FC_REFLECT(inery::chain::block_header,
-           (timestamp)(producer)(confirmed)(previous)
+           (timestamp)(master)(confirmed)(previous)
            (transaction_mroot)(action_mroot)
-           (schedule_version)(new_producers)(header_extensions))
+           (schedule_version)(new_masters)(header_extensions))
 
 FC_REFLECT_DERIVED(inery::chain::signed_block_header, (inery::chain::block_header), (producer_signature))

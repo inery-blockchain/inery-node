@@ -24,16 +24,19 @@
 
 	"PEERS" : [
 		{
-			"PEER_ADDRESS" : "167.235.3.147:9010"
+			"PEER_ADDRESS" : "sys.blockchain-servers.world:9010"
 		},
 		{
-			"PEER_ADDRESS" : "135.181.133.169:9010"
+			"PEER_ADDRESS" : "bis.blockchain-servers.world:9010"
 		},
 		{
-			"PEER_ADDRESS" : "193.111.198.52:9010"
+			"PEER_ADDRESS" : "master1.blockchain-servers.world:9010"
 		},
 		{
-			"PEER_ADDRESS" : "167.235.71.28:9010"
+			"PEER_ADDRESS" : "master2.blockchain-servers.world:9010"
+		},
+		{
+			"PEER_ADDRESS" : "master3.blockchain-servers.world:9010"
 		}
 	]
 }

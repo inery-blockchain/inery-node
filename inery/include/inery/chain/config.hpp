@@ -23,9 +23,9 @@ const static name system_account_name    { N(inery) };
 const static name null_account_name      { N(inery.null) };
 const static name producers_account_name { N(inery.prods) };
 
-// Active permission of producers account requires greater than 2/3 of the producers to authorize
-const static name majority_producers_permission_name { N(prod.major) }; // greater than 1/2 of producers needed to authorize
-const static name minority_producers_permission_name { N(prod.minor) }; // greater than 1/3 of producers needed to authorize0
+// Active permission of masters account requires greater than 2/3 of the masters to authorize
+const static name majority_producers_permission_name { N(prod.major) }; // greater than 1/2 of masters needed to authorize
+const static name minority_producers_permission_name { N(prod.minor) }; // greater than 1/3 of masters needed to authorize0
 
 const static name inery_auth_scope       { N(inery.auth) };
 const static name inery_all_scope        { N(inery.all) };
@@ -103,18 +103,18 @@ const static uint32_t   default_abi_serializer_max_time_us = 15*1000; ///< defau
 /**
  *  The number of sequential blocks produced by a single producer
  */
-const static int producer_repetitions = 1;
+const static int master_repetitions = 1;
 const static int max_producers = 10000;
 
 const static size_t maximum_tracked_dpos_confirmations = 1024;     ///<
-//static_assert(maximum_tracked_dpos_confirmations >= ((max_producers * 2 / 3) + 1) * producer_repetitions, "Settings never allow for DPOS irreversibility" );
+//static_assert(maximum_tracked_dpos_confirmations >= ((max_producers * 2 / 3) + 1) * master_repetitions, "Settings never allow for DPOS irreversibility" );
 
 
 /**
- * The number of blocks produced per round is based upon all producers having a chance
+ * The number of blocks produced per round is based upon all masters having a chance
  * to produce all of their consecutive blocks.
  */
-//const static int blocks_per_round = producer_count * producer_repetitions;
+//const static int blocks_per_round = producer_count * master_repetitions;
 
 const static int irreversible_threshold_percent= 70 * percent_1;
 

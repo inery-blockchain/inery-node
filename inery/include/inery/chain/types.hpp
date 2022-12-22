@@ -175,7 +175,7 @@ namespace inery { namespace chain {
       UNUSED_balance_object_type,
       UNUSED_staked_balance_object_type,
       UNUSED_producer_votes_object_type,
-      UNUSED_producer_schedule_object_type,
+      UNUSED_master_schedule_object_type,
       UNUSED_proxy_vote_object_type,
       UNUSED_scope_sequence_object_type,
       table_id_object_type,

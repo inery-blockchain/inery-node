@@ -8,9 +8,9 @@ namespace inery { namespace chain {
 /**
  * @brief Producer-voted blockchain configuration parameters
  *
- * This object stores the blockchain configuration, which is set by the block producers. Block producers each vote for
+ * This object stores the blockchain configuration, which is set by the block masters. Block masters each vote for
  * their preference for each of the parameters in this object, and the blockchain runs according to the median of the
- * values specified by the producers.
+ * values specified by the masters.
  */
 struct chain_config {
    uint64_t   max_block_net_usage;                 ///< the maxiumum net usage in instructions for a block

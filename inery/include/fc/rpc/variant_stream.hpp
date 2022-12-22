@@ -13,13 +13,13 @@ namespace fc
         variant_stream( size_t s );
         ~variant_stream();
 
-        /** producer api */
+        /** master api */
         int64_t free(); // number of spaces available
         int64_t claim( int64_t num );
         int64_t publish( int64_t pos );
         int64_t wait_free(); // wait for free space
 
-        // producer/consumer api
+        // master/consumer api
         variant&  get( int64_t pos );
 
         /** consumer api */

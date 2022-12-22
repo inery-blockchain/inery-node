@@ -106,7 +106,7 @@ namespace inery { namespace chain {
    struct producer_confirmation {
       block_id_type   block_id;
       digest_type     block_digest;
-      account_name    producer;
+      account_name    master;
       signature_type  sig;
    };
 

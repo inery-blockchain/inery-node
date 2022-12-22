@@ -99,9 +99,9 @@ namespace inery { namespace chain {
 
          enum class block_status {
             irreversible = 0, ///< this block has already been applied before by this node and is considered irreversible
-            validated   = 1, ///< this is a complete block signed by a valid producer and has been previously applied by this node and therefore validated but it is not yet irreversible
-            complete   = 2, ///< this is a complete block signed by a valid producer but is not yet irreversible nor has it yet been applied by this node
-            incomplete  = 3, ///< this is an incomplete block (either being produced by a producer or speculatively produced by a node)
+            validated   = 1, ///< this is a complete block signed by a valid master and has been previously applied by this node and therefore validated but it is not yet irreversible
+            complete   = 2, ///< this is a complete block signed by a valid master but is not yet irreversible nor has it yet been applied by this node
+            incomplete  = 3, ///< this is an incomplete block (either being produced by a master or speculatively produced by a node)
          };
 
          controller( const config& cfg, const chain_id_type& chain_id );
@@ -222,9 +222,9 @@ namespace inery { namespace chain {
 
          const vector<transaction_receipt>& get_pending_trx_receipts()const;
 
-         const producer_authority_schedule&    active_producers()const;
-         const producer_authority_schedule&    pending_producers()const;
-         optional<producer_authority_schedule> proposed_producers()const;
+         const master_authority_schedule&    active_masters()const;
+         const master_authority_schedule&    pending_masters()const;
+         optional<master_authority_schedule> proposed_masters()const;
 
          uint32_t last_irreversible_block_num() const;
          block_id_type last_irreversible_block_id() const;
@@ -271,14 +271,14 @@ namespace inery { namespace chain {
 
          bool is_known_unexpired_transaction( const transaction_id_type& id) const;
 
-         int64_t set_proposed_producers( vector<producer_authority> producers );
+         int64_t set_proposed_masters( vector<master_authority> masters );
 
          bool light_validation_allowed(bool replay_opts_disabled_by_policy) const;
          bool skip_auth_check()const;
          bool skip_db_sessions( )const;
          bool skip_db_sessions( block_status bs )const;
          bool skip_trx_checks()const;
-         bool is_trusted_producer( const account_name& producer) const;
+         bool is_trusted_producer( const account_name& master) const;
 
          bool contracts_console()const;
 

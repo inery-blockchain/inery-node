@@ -14,7 +14,7 @@ struct chain_snapshot_header {
     *   3: Updated for v2.0.0 protocol features:
     *         - forwards compatible with version 2
     *         - WebAuthn keys
-    *         - wtmsig block siganatures: the block header state changed to include producer authorities and additional signatures
+    *         - wtmsig block siganatures: the block header state changed to include master authorities and additional signatures
     *         - removed genesis_state and added chain ID to global_property_object
     */
 

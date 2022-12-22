@@ -6,7 +6,7 @@
 #include <inery/chain/block_timestamp.hpp>
 #include <inery/chain/chain_config.hpp>
 #include <inery/chain/chain_snapshot.hpp>
-#include <inery/chain/producer_schedule.hpp>
+#include <inery/chain/master_schedule.hpp>
 #include <inery/chain/incremental_merkle.hpp>
 #include <inery/chain/snapshot.hpp>
 #include <chainbase/chainbase.hpp>
@@ -25,14 +25,14 @@ namespace inery { namespace chain {
          static_assert(chain_snapshot_header::minimum_compatible_version <= maximum_version, "snapshot_global_property_object_v2 is no longer needed");
 
          optional<block_num_type>         proposed_schedule_block_num;
-         producer_schedule_type           proposed_schedule;
+         master_schedule_type           proposed_schedule;
          chain_config                     configuration;
       };
    }
 
    /**
     * @class global_property_object
-    * @brief Maintains global state information about block producer schedules and chain configuration parameters
+    * @brief Maintains global state information about block master schedules and chain configuration parameters
     * @ingroup object
     * @ingroup implementation
     */
@@ -43,13 +43,13 @@ namespace inery { namespace chain {
    public:
       id_type                             id;
       optional<block_num_type>            proposed_schedule_block_num;
-      shared_producer_authority_schedule  proposed_schedule;
+      shared_master_authority_schedule  proposed_schedule;
       chain_config                        configuration;
       chain_id_type                       chain_id;
 
       void initalize_from( const legacy::snapshot_global_property_object_v2& legacy, const chain_id_type& chain_id_val ) {
          proposed_schedule_block_num = legacy.proposed_schedule_block_num;
-         proposed_schedule = producer_authority_schedule(legacy.proposed_schedule).to_shared(proposed_schedule.producers.get_allocator());
+         proposed_schedule = master_authority_schedule(legacy.proposed_schedule).to_shared(proposed_schedule.masters.get_allocator());
          configuration = legacy.configuration;
          chain_id = chain_id_val;
       }
@@ -67,7 +67,7 @@ namespace inery { namespace chain {
 
    struct snapshot_global_property_object {
       optional<block_num_type>            proposed_schedule_block_num;
-      producer_authority_schedule         proposed_schedule;
+      master_authority_schedule         proposed_schedule;
       chain_config                        configuration;
       chain_id_type                       chain_id;
    };
@@ -79,12 +79,12 @@ namespace inery { namespace chain {
          using snapshot_type = snapshot_global_property_object;
 
          static snapshot_global_property_object to_snapshot_row( const global_property_object& value, const chainbase::database& ) {
-            return {value.proposed_schedule_block_num, producer_authority_schedule::from_shared(value.proposed_schedule), value.configuration, value.chain_id};
+            return {value.proposed_schedule_block_num, master_authority_schedule::from_shared(value.proposed_schedule), value.configuration, value.chain_id};
          }
 
          static void from_snapshot_row( snapshot_global_property_object&& row, global_property_object& value, chainbase::database& ) {
             value.proposed_schedule_block_num = row.proposed_schedule_block_num;
-            value.proposed_schedule = row.proposed_schedule.to_shared(value.proposed_schedule.producers.get_allocator());
+            value.proposed_schedule = row.proposed_schedule.to_shared(value.proposed_schedule.masters.get_allocator());
             value.configuration = row.configuration;
             value.chain_id = row.chain_id;
          }

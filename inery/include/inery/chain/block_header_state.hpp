@@ -9,10 +9,6 @@ namespace inery { namespace chain {
 
 namespace legacy {
 
-   /**
-    * a fc::raw::unpack compatible version of the old block_state structure stored in
-    * version 2 snapshots
-    */
    struct snapshot_block_header_state_v2 {
       static constexpr uint32_t minimum_version = 0;
       static constexpr uint32_t maximum_version = 2;
@@ -21,17 +17,17 @@ namespace legacy {
       struct schedule_info {
          uint32_t                          schedule_lib_num = 0; /// last irr block num
          digest_type                       schedule_hash;
-         producer_schedule_type            schedule;
+         master_schedule_type            schedule;
       };
 
       /// from block_header_state_common
       uint32_t                             block_num = 0;
       uint32_t                             dpos_proposed_irreversible_blocknum = 0;
       uint32_t                             dpos_irreversible_blocknum = 0;
-      producer_schedule_type               active_schedule;
+      master_schedule_type                 active_schedule;
       incremental_merkle                   blockroot_merkle;
-      flat_map<account_name,uint32_t>      producer_to_last_produced;
-      flat_map<account_name,uint32_t>      producer_to_last_implied_irb;
+      flat_map<account_name,uint32_t>      master_to_last_produced;
+      flat_map<account_name,uint32_t>      master_to_last_implied_irb;
       public_key_type                      block_signing_key;
       vector<uint8_t>                      confirm_count;
 
@@ -48,14 +44,15 @@ using signer_callback_type = std::function<std::vector<signature_type>(const dig
 struct block_header_state;
 
 namespace detail {
+
    struct block_header_state_common {
       uint32_t                          block_num = 0;
       uint32_t                          dpos_proposed_irreversible_blocknum = 0;
       uint32_t                          dpos_irreversible_blocknum = 0;
-      producer_authority_schedule       active_schedule;
+      master_authority_schedule         active_schedule;
       incremental_merkle                blockroot_merkle;
-      flat_map<account_name,uint32_t>   producer_to_last_produced;
-      flat_map<account_name,uint32_t>   producer_to_last_implied_irb;
+      flat_map<account_name,uint32_t>   master_to_last_produced;
+      flat_map<account_name,uint32_t>   master_to_last_implied_irb;
       block_signing_authority           valid_block_signing_authority;
       vector<uint8_t>                   confirm_count;
    };
@@ -63,7 +60,7 @@ namespace detail {
    struct schedule_info {
       uint32_t                          schedule_lib_num = 0; /// last irr block num
       digest_type                       schedule_hash;
-      producer_authority_schedule       schedule;
+      master_authority_schedule         schedule;
    };
 
    bool is_builtin_activated( const protocol_feature_activation_set_ptr& pfa,
@@ -76,14 +73,14 @@ struct pending_block_header_state : public detail::block_header_state_common {
    detail::schedule_info                prev_pending_schedule;
    bool                                 was_pending_promoted = false;
    block_id_type                        previous;
-   account_name                         producer;
+   account_name                         master;
    block_timestamp_type                 timestamp;
    uint32_t                             active_schedule_version = 0;
    uint16_t                             confirmed = 1;
 
    signed_block_header make_block_header( const checksum256_type& transaction_mroot,
                                           const checksum256_type& action_mroot,
-                                          const optional<producer_authority_schedule>& new_producers,
+                                          const optional<master_authority_schedule>& new_masters,
                                           vector<digest_type>&& new_protocol_feature_activations,
                                           const protocol_feature_set& pfs)const;
 
@@ -143,10 +140,10 @@ struct block_header_state : public detail::block_header_state_common {
                                                         const vector<digest_type>& )>& validator,
                               bool skip_validate_signee = false )const;
 
-   bool                 has_pending_producers()const { return pending_schedule.schedule.producers.size(); }
-   uint32_t             calc_dpos_last_irreversible( account_name producer_of_next_block )const;
+   bool                 has_pending_masters()const { return pending_schedule.schedule.masters.size(); }
+   uint32_t             calc_dpos_last_irreversible( account_name master_of_next_block )const;
 
-   producer_authority     get_scheduled_producer( block_timestamp_type t )const;
+   master_authority       get_scheduled_master( block_timestamp_type t )const;
    const block_id_type&   prev()const { return header.previous; }
    digest_type            sig_digest()const;
    void                   sign( const signer_callback_type& signer );
@@ -165,8 +162,8 @@ FC_REFLECT( inery::chain::detail::block_header_state_common,
             (dpos_irreversible_blocknum)
             (active_schedule)
             (blockroot_merkle)
-            (producer_to_last_produced)
-            (producer_to_last_implied_irb)
+            (master_to_last_produced)
+            (master_to_last_implied_irb)
             (valid_block_signing_authority)
             (confirm_count)
 )
@@ -199,8 +196,8 @@ FC_REFLECT( inery::chain::legacy::snapshot_block_header_state_v2,
           ( dpos_irreversible_blocknum )
           ( active_schedule )
           ( blockroot_merkle )
-          ( producer_to_last_produced )
-          ( producer_to_last_implied_irb )
+          ( master_to_last_produced )
+          ( master_to_last_implied_irb )
           ( block_signing_key )
           ( confirm_count )
           ( id )

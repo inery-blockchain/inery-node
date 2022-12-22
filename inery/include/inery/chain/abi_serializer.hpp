@@ -513,13 +513,13 @@ namespace impl {
          auto h = ctx.enter_scope();
          mutable_variant_object mvo;
          mvo("timestamp", block.timestamp);
-         mvo("producer", block.producer);
+         mvo("master", block.master);
          mvo("confirmed", block.confirmed);
          mvo("previous", block.previous);
          mvo("transaction_mroot", block.transaction_mroot);
          mvo("action_mroot", block.action_mroot);
          mvo("schedule_version", block.schedule_version);
-         mvo("new_producers", block.new_producers);
+         mvo("new_masters", block.new_masters);
 
          // process contents of block.header_extensions
          flat_multimap<uint16_t, block_header_extension> header_exts = block.validate_and_extract_header_extensions();
@@ -534,9 +534,9 @@ namespace impl {
             }
             mvo("new_protocol_features", pf_array);
          }
-         if ( header_exts.count(producer_schedule_change_extension::extension_id())) {
-            const auto& new_producer_schedule = header_exts.lower_bound(producer_schedule_change_extension::extension_id())->second.get<producer_schedule_change_extension>();
-            mvo("new_producer_schedule", new_producer_schedule);
+         if ( header_exts.count(master_schedule_change_extension::extension_id())) {
+            const auto& new_master_schedule = header_exts.lower_bound(master_schedule_change_extension::extension_id())->second.get<master_schedule_change_extension>();
+            mvo("new_master_schedule", new_master_schedule);
          }
 
          mvo("producer_signature", block.producer_signature);

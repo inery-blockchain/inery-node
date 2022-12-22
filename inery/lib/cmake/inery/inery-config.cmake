@@ -1,5 +1,5 @@
 if(INERY_ROOT STREQUAL "" OR NOT INERY_ROOT)
-   set(INERY_ROOT "/root/inery/schedule_1.0")
+   set(INERY_ROOT "/petar/installations/inery")
 endif()
 list(APPEND CMAKE_MODULE_PATH ${INERY_ROOT}/lib/cmake/inery)
 list(APPEND CMAKE_MODULE_PATH ${INERY_ROOT}/lib64/cmake/inery)

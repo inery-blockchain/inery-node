@@ -90,7 +90,7 @@ namespace inery { namespace chain {
 
 //to derive blknum_offset==14 see block_header.hpp and note on disk struct is packed
 //   block_timestamp_type timestamp;                  //bytes 0:3
-//   account_name         producer;                   //bytes 4:11
+//   account_name         master;                   //bytes 4:11
 //   uint16_t             confirmed;                  //bytes 12:13
 //   block_id_type        previous;                   //bytes 14:45, low 4 bytes is big endian block number of previous block
 

@@ -15,7 +15,7 @@ enum class builtin_protocol_feature_t : uint32_t {
    replace_deferred,
    no_duplicate_deferred_id,
    fix_linkauth_restriction,
-   disallow_empty_producer_schedule,
+   disallow_empty_master_schedule,
    restrict_action_to_self,
    only_bill_first_authorizer,
    forward_setcode,

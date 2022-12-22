@@ -227,7 +227,7 @@ namespace inery { namespace chain {
       FC_DECLARE_DERIVED_EXCEPTION( wrong_signing_key,           block_validate_exception,
                                     3030008, "Block is not signed with expected key" )
       FC_DECLARE_DERIVED_EXCEPTION( wrong_producer,              block_validate_exception,
-                                    3030009, "Block is not signed by expected producer" )
+                                    3030009, "Block is not signed by expected master" )
       FC_DECLARE_DERIVED_EXCEPTION( invalid_block_header_extension, block_validate_exception,
                                     3030010, "Invalid block header extension" )
       FC_DECLARE_DERIVED_EXCEPTION( ill_formed_protocol_feature_activation, block_validate_exception,
@@ -402,8 +402,6 @@ namespace inery { namespace chain {
                                     3100005, "Extracted genesis state from blocks.log" )
       FC_DECLARE_DERIVED_EXCEPTION( subjective_block_production_exception,  misc_exception,
                                     3100006, "Subjective exception thrown during block production" )
-      FC_DECLARE_DERIVED_EXCEPTION( multiple_voter_info,                    misc_exception,
-                                    3100007, "Multiple voter info detected" )
       FC_DECLARE_DERIVED_EXCEPTION( unsupported_feature,                    misc_exception,
                                     3100008, "Feature is currently unsupported" )
       FC_DECLARE_DERIVED_EXCEPTION( node_management_success,                misc_exception,
@@ -548,10 +546,10 @@ namespace inery { namespace chain {
                                     3170002, "Pending block state is missing" )
       FC_DECLARE_DERIVED_EXCEPTION( producer_double_confirm,       producer_exception,
                                     3170003, "Producer is double confirming known range" )
-      FC_DECLARE_DERIVED_EXCEPTION( producer_schedule_exception,   producer_exception,
+      FC_DECLARE_DERIVED_EXCEPTION( master_schedule_exception,   producer_exception,
                                     3170004, "Producer schedule exception" )
       FC_DECLARE_DERIVED_EXCEPTION( producer_not_in_schedule,      producer_exception,
-                                    3170006, "The producer is not part of current schedule" )
+                                    3170006, "The master is not part of current schedule" )
       FC_DECLARE_DERIVED_EXCEPTION( snapshot_directory_not_found_exception,  producer_exception,
                                     3170007, "The configured snapshot directory does not exist" )
       FC_DECLARE_DERIVED_EXCEPTION( snapshot_exists_exception,  producer_exception,
