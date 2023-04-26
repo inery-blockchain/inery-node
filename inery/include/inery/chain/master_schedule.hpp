@@ -28,7 +28,7 @@ namespace inery { namespace chain {
        */
       struct master_schedule_type {
          uint32_t                                       version = 0; ///< sequentially incrementing version number
-         vector<master_key>                           masters;
+         vector<master_key>                              masters;
 
          friend bool operator == ( const master_schedule_type& a, const master_schedule_type& b )
          {
@@ -89,7 +89,7 @@ namespace inery { namespace chain {
       shared_master_authority_schedule& operator= ( shared_master_authority_schedule && ) = default;
       shared_master_authority_schedule& operator= ( const shared_master_authority_schedule & ) = default;
 
-      uint32_t                                       version = 0; ///< sequentially incrementing version number
+      uint32_t                                     version = 0; ///< sequentially incrementing version number
       shared_vector<shared_master_authority>       masters;
    };
 

@@ -301,7 +301,7 @@ namespace inery { namespace chain {
       FC_DECLARE_DERIVED_EXCEPTION( inline_action_too_big, action_validate_exception,
                                     3050009, "Inline Action exceeds maximum size limit" )
       FC_DECLARE_DERIVED_EXCEPTION( unauthorized_mem_usage_increase, action_validate_exception,
-                                    3050010, "Action attempts to increase MEM usage of account without authorization" )
+                                    3050010, "Action attempts to increase BYTE usage of account without authorization" )
       FC_DECLARE_DERIVED_EXCEPTION( restricted_error_code_exception, action_validate_exception,
                                     3050011, "inery_assert_code assertion failure uses restricted error code value" )
       FC_DECLARE_DERIVED_EXCEPTION( inline_action_too_big_nonprivileged, action_validate_exception,
@@ -347,7 +347,7 @@ namespace inery { namespace chain {
                                  3080000, "Resource exhausted exception" )
 
       FC_DECLARE_DERIVED_EXCEPTION( mem_usage_exceeded, resource_exhausted_exception,
-                                    3080001, "Account using more than allotted MEM usage" )
+                                    3080001, "Account using more than allotted BYTE usage" )
       FC_DECLARE_DERIVED_EXCEPTION( tx_net_usage_exceeded, resource_exhausted_exception,
                                     3080002, "Transaction exceeded the current network usage limit imposed on the transaction" )
       FC_DECLARE_DERIVED_EXCEPTION( block_net_usage_exceeded, resource_exhausted_exception,

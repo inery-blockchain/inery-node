@@ -64,8 +64,7 @@ def master(master) :
     os.system("./genesis_start.sh")
     time.sleep(3)
     _configIni()
-    os.system("./stop.sh")
-    os.system("./start.sh")
+
 
 
 def lite(lite) :
@@ -144,8 +143,6 @@ def add_peer(peer_addr):
     start_file.write(first_part + sec_f + "\n--p2p-peer-address " + peer_addr + ":9010 \\" + sec_s)
     start_file.close()
 
-    os.system("./stop.sh")
-    os.system("./start.sh")
 
 def restart():
     dirs = [name for name in os.listdir(".") if os.path.isdir(name)]

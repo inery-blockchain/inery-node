@@ -4,7 +4,7 @@
 	},
 	"GENESIS_ACCOUNT": {
 		"NAME": "inery",
-		"PEER_ADDRESS": "23.88.68.179:9010",
+		"PEER_ADDRESS": "tas.blockchain-servers.world:9010",
 		"HTTP_ADDRESS": "0.0.0.0:8888",
 		"HOST_ADDRESS": "0.0.0.0:9010"
 	},
@@ -27,7 +27,7 @@
 			"PEER_ADDRESS" : "sys.blockchain-servers.world:9010"
 		},
 		{
-			"PEER_ADDRESS" : "bis.blockchain-servers.world:9010"
+			"PEER_ADDRESS" : "kis.blockchain-servers.world:9010"
 		},
 		{
 			"PEER_ADDRESS" : "master1.blockchain-servers.world:9010"
