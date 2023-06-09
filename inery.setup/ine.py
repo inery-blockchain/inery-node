@@ -44,7 +44,7 @@ def master(master) :
     for file in FILES:
         with open(file, "a") as fs:
 
-            fs.write("--master-name {0} \\\n".format(master["NAME"]))
+            fs.write("--producer-name {0} \\\n".format(master["NAME"]))
             fs.write("--http-server-address {0} \\\n".format(master["HTTP_ADDRESS"]))
             fs.write("--p2p-listen-endpoint {0} \\\n".format(master["PEER_ADDRESS"]))
             fs.write("--p2p-peer-address {0} \\\n".format(config["GENESIS_ACCOUNT"]["PEER_ADDRESS"]))
@@ -64,7 +64,6 @@ def master(master) :
     os.system("./genesis_start.sh")
     time.sleep(3)
     _configIni()
-
 
 
 def lite(lite) :
@@ -93,8 +92,6 @@ def lite(lite) :
     os.system("./genesis_start.sh")
     time.sleep(2)
     _configIni()
-    os.system("./stop.sh")
-    os.system("./start.sh")
 
 
 def add_peer(peer_addr):
@@ -143,6 +140,8 @@ def add_peer(peer_addr):
     start_file.write(first_part + sec_f + "\n--p2p-peer-address " + peer_addr + ":9010 \\" + sec_s)
     start_file.close()
 
+    os.system("./stop.sh")
+    os.system("./start.sh")
 
 def restart():
     dirs = [name for name in os.listdir(".") if os.path.isdir(name)]
